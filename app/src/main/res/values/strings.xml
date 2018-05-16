@@ -8,37 +8,40 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
-    <string name="nav_item_home">Home</string>
-    <string name="nav_item_friends">Friends</string>
-    <string name="nav_item_notifications">Messages</string>
+
+    <!--Use For the HashMap  data Initialzation-->
+
+    <string name="nav_item_actors">Actors</string>
+    <string name="nav_item_bollyWood">Bollyood</string>
+    <string name="nav_item_HollyWood">Hollywood</string>
 
     <string-array name="nav_drawer_labels">
-        <item>@string/nav_item_home</item>
-        <item>@string/nav_item_friends</item>
-        <item>@string/nav_item_notifications</item>
+        <item>@string/nav_item_actors</item>
+        <item>@string/nav_item_bollyWood</item>
+        <item>@string/nav_item_HollyWood</item>
     </string-array>
 
-    <string-array name="elements_home">
-        <item>Babha</item>
-        <item>Gandhi</item>
-        <item>Nehru</item>
-        <item>Tagore</item>
+    <string-array name="elements_Actors">
+        <item>Akshay</item>
+        <item>Govinda</item>
+        <item>Salman</item>
+        <item>Rajpal</item>
     </string-array>
 
-    <string-array name="elements_friends">
-        <item>Rachel</item>
-        <item>Ross</item>
-        <item>Monica</item>
-        <item>Phoebe</item>
-        <item>Chandler</item>
-        <item>Joey</item>
+    <string-array name="elements_bollywood">
+        <item>Ddlj</item>
+        <item>Race</item>
+        <item>Sarkar</item>
+        <item>Humko Dewana Ker Gay</item>
+        <item>Namastey London</item>
+        <item>Jolly LLB</item>
     </string-array>
 
-    <string-array name="elements_notifs">
-        <item>Yellow</item>
-        <item>Red</item>
-        <item>Green</item>
-        <item>Blue</item>
-        <item>Pink!</item>
+    <string-array name="elements_hollywood">
+        <item>Spider Man</item>
+        <item>Narnia</item>
+        <item>Harry Potter</item>
+        <item>Avengers</item>
+        <item>Titenic</item>
     </string-array>
 </resources>

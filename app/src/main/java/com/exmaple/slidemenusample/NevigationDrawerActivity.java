@@ -34,10 +34,10 @@ public class NevigationDrawerActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nevigation_drawer);
 
-        initializeControls();
-        bindControls();
-        prepareListData();
-        setNavigationHeaderItem();
+        initializeControls(); // for getting all id from XML
+        bindControls(); // for setting all the attributes
+        prepareListData(); // for getting all the data from the server or local data base
+        setNavigationHeaderItem(); // for setting that nevigation drawable data
     }
 
     private void bindControls() {
@@ -56,9 +56,6 @@ public class NevigationDrawerActivity extends AppCompatActivity
     private void setNavigationHeaderItem() {
         View header = navigationView.inflateHeaderView(R.layout.nav_header_layout);
         elv_menuItem = (ExpandableHeightListView) header.findViewById(R.id.elv_menuOption);
-
-
-
         elv_menuItem.setAdapter(new MyExpandableMenuListAdapter(this, headerDataList, childDataList));
         elv_menuItem.setOnChildClickListener(this);
         navigationView.setNavigationItemSelectedListener(this);
@@ -125,27 +122,27 @@ public class NevigationDrawerActivity extends AppCompatActivity
         headerDataList = new ArrayList<String>();
         childDataList = new HashMap<String, List<String>>();
 
-        // Adding headers
+        // headers data initialization
         Resources res = getResources();
         String[] headers = res.getStringArray(R.array.nav_drawer_labels);
         headerDataList = Arrays.asList(headers);
 
-        List<String> home, friends, notifs;
-        String[] shome, sfriends, snotifs;
+        List<String> actorName, b_movie, h_moview;
+        String[] arrayActors, arrayBolMovie, arrayHolMovie;
 
-        shome = res.getStringArray(R.array.elements_home);
-        home = Arrays.asList(shome);
+        arrayActors = res.getStringArray(R.array.elements_Actors);
+        actorName = Arrays.asList(arrayActors);
 
-        sfriends = res.getStringArray(R.array.elements_friends);
-        friends = Arrays.asList(sfriends);
+        arrayBolMovie = res.getStringArray(R.array.elements_bollywood);
+        b_movie = Arrays.asList(arrayBolMovie);
 
-        snotifs = res.getStringArray(R.array.elements_notifs);
-        notifs = Arrays.asList(snotifs);
+        arrayHolMovie = res.getStringArray(R.array.elements_hollywood);
+        h_moview = Arrays.asList(arrayHolMovie);
 
-        // Add to hashMap
-        childDataList.put(headerDataList.get(0), home); // Header, Child data
-        childDataList.put(headerDataList.get(1), friends);
-        childDataList.put(headerDataList.get(2), notifs);
+        //Add to hashMap
+        childDataList.put(headerDataList.get(0), actorName);
+        childDataList.put(headerDataList.get(1), b_movie);
+        childDataList.put(headerDataList.get(2), h_moview);
     }
 
     @Override
