@@ -20,15 +20,15 @@ public class MyExpandableMenuListAdapter extends BaseExpandableListAdapter {
     public LayoutInflater minflater;
     public Activity activity;
     private Context _context;
-    private List<String> _listDataHeader; // header titles
+    private List<String> _headerDataList; // header titles
     // child data in format of header title, child title
-    private HashMap<String, List<String>> _listDataChild;
+    private HashMap<String, List<String>> _childDataList;
 
-    public MyExpandableMenuListAdapter(Context context, List<String> listDataHeader,
+    public MyExpandableMenuListAdapter(Context context, List<String> headerDataList,
                                        HashMap<String, List<String>> listChildData) {
         this._context = context;
-        this._listDataHeader = listDataHeader;
-        this._listDataChild = listChildData;
+        this._headerDataList = headerDataList;
+        this._childDataList = listChildData;
     }
 
     public void setInflater(LayoutInflater mInflater, Activity act) {
@@ -38,7 +38,7 @@ public class MyExpandableMenuListAdapter extends BaseExpandableListAdapter {
 
     @Override
     public Object getChild(int groupPosition, int childPosititon) {
-        return this._listDataChild.get(this._listDataHeader.get(groupPosition))
+        return this._childDataList.get(this._headerDataList.get(groupPosition))
                 .get(childPosititon);
     }
 
@@ -67,18 +67,18 @@ public class MyExpandableMenuListAdapter extends BaseExpandableListAdapter {
 
     @Override
     public int getChildrenCount(int groupPosition) {
-        return this._listDataChild.get(this._listDataHeader.get(groupPosition))
+        return this._childDataList.get(this._headerDataList.get(groupPosition))
                 .size();
     }
 
     @Override
     public Object getGroup(int groupPosition) {
-        return this._listDataHeader.get(groupPosition);
+        return this._headerDataList.get(groupPosition);
     }
 
     @Override
     public int getGroupCount() {
-        return this._listDataHeader.size();
+        return this._headerDataList.size();
     }
 
     @Override

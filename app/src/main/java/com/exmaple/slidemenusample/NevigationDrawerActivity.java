@@ -4,7 +4,6 @@ import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -24,46 +23,43 @@ import java.util.List;
 public class NevigationDrawerActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, ExpandableListView.OnChildClickListener {
     NavigationView navigationView;
-    private ExpandableListView elv_menuItem;
-    List<String> listDataHeader;
-    HashMap<String, List<String>> listDataChild;
+    Toolbar toolbar;
+    DrawerLayout drawer;
+    private ExpandableHeightListView elv_menuItem;
+    List<String> headerDataList;
+    HashMap<String, List<String>> childDataList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nevigation_drawer);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+
+        initializeControls();
+        bindControls();
+        prepareListData();
+        setNavigationHeaderItem();
+    }
+
+    private void bindControls() {
         setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
+    }
 
+    private void initializeControls() {
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         navigationView = (NavigationView) findViewById(R.id.nav_view);
-        setNavigationHeaderItem();
-
-
     }
 
     private void setNavigationHeaderItem() {
-       View header =  navigationView.inflateHeaderView(R.layout.nav_header_layout);
-        elv_menuItem = (ExpandableListView) header.findViewById(R.id.elv_menuOption);
+        View header = navigationView.inflateHeaderView(R.layout.nav_header_layout);
+        elv_menuItem = (ExpandableHeightListView) header.findViewById(R.id.elv_menuOption);
 
-        // preparing list data
-        prepareListData();
 
-        elv_menuItem.setAdapter(new MyExpandableMenuListAdapter(this, listDataHeader, listDataChild));
+
+        elv_menuItem.setAdapter(new MyExpandableMenuListAdapter(this, headerDataList, childDataList));
         elv_menuItem.setOnChildClickListener(this);
         navigationView.setNavigationItemSelectedListener(this);
     }
@@ -126,32 +122,14 @@ public class NevigationDrawerActivity extends AppCompatActivity
     }
 
     private void prepareListData() {
-        listDataHeader = new ArrayList<String>();
-        listDataChild = new HashMap<String, List<String>>();
-
+        headerDataList = new ArrayList<String>();
+        childDataList = new HashMap<String, List<String>>();
 
         // Adding headers
         Resources res = getResources();
         String[] headers = res.getStringArray(R.array.nav_drawer_labels);
-        listDataHeader = Arrays.asList(headers);
+        headerDataList = Arrays.asList(headers);
 
-        //Adding child data
-
-//        //Dynamic method
-//        for (int i =0; i<listDataHeader.size(); i++){
-//
-//            //Save data in array
-//            String[] childData = res.getStringArray(R.array.elements_home);
-//
-//            //Put data in List
-//            List<String> listChild;
-//            listChild = Arrays.asList(childData);
-//
-//            //Add to hashMap
-//            listDataChild.put(listDataHeader.get(i),listChild);
-//        }
-
-        // Static method
         List<String> home, friends, notifs;
         String[] shome, sfriends, snotifs;
 
@@ -165,21 +143,15 @@ public class NevigationDrawerActivity extends AppCompatActivity
         notifs = Arrays.asList(snotifs);
 
         // Add to hashMap
-        listDataChild.put(listDataHeader.get(0), home); // Header, Child data
-        listDataChild.put(listDataHeader.get(1), friends);
-        listDataChild.put(listDataHeader.get(2), notifs);
+        childDataList.put(headerDataList.get(0), home); // Header, Child data
+        childDataList.put(headerDataList.get(1), friends);
+        childDataList.put(headerDataList.get(2), notifs);
     }
 
     @Override
     public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
-        Toast.makeText(
-                getApplicationContext(),
-                listDataHeader.get(groupPosition)
-                        + " : "
-                        + listDataChild.get(
-                        listDataHeader.get(groupPosition)).get(
-                        childPosition), Toast.LENGTH_SHORT)
-                .show();
+        Toast.makeText(getApplicationContext(),headerDataList.get(groupPosition)+ " - "+
+                childDataList.get(headerDataList.get(groupPosition)).get(childPosition), Toast.LENGTH_SHORT).show();
         return false;
     }
 }
